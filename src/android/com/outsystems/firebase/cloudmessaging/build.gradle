@@ -53,3 +53,7 @@ ext.postBuildExtras = {
         googleServices.disableVersionCheck = true
     }
 }
+
+cdvPluginPostBuildExtras.add({
+    apply plugin: 'com.google.gms.google-services'
+})

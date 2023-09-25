@@ -93,6 +93,7 @@
       <string name="notification_channel_description">Channel description</string>
     </config-file>
 
+    <resource-file src="google-services.json" target="./google-services.json"/>
     <source-file src="src/android/com/outsystems/firebase/cloudmessaging/OSFirebaseCloudMessaging.kt" target-dir="app/src/main/kotlin/com/outsystems/firebase/cloudmessaging"/>
     <framework src="src/android/com/outsystems/firebase/cloudmessaging/build.gradle" custom="true" type="gradleReference" />
 
