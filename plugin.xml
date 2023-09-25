@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin id="com.outsystems.firebase.cloudmessaging" version="2.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>OSFirebaseCloudMessaging</name>
+  <description>Outsystems plugin for Firebase Cloud Messaging</description>
+  <author>OutSystems Inc</author>
+  <js-module name="OSFirebaseCloudMessaging" src="www/OSFirebaseCloudMessaging.js">
+    <clobbers target="cordova.plugins.OSFirebaseCloudMessaging"/>
+  </js-module>
+
+  <dependency id="cordova-outsystems-firebase-core" url="https://github.com/OutSystems/cordova-outsystems-firebase-core.git#2.0.0"/>
+  
+  <hook type="after_prepare" src="hooks/unzipSound.js" />
+  <hook type="after_prepare" src="hooks/cleanUp.js" />
+
+  <platform name="ios">
+
+    <config-file parent="/*" target="config.xml">
+      <feature name="OSFirebaseCloudMessaging">
+        <param name="ios-package" value="OSFirebaseCloudMessaging"/>
+        <param name="onload" value="true" />
+      </feature>
+      <preference name="deployment-target" value="13" />
+      <preference name="UseSwiftLanguageVersion" value="5" />
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="UIBackgroundModes">
+      <array>
+        <string>remote-notification</string>
+      </array>
+    </config-file>
+
+    <config-file target="*-Debug.plist" parent="aps-environment">
+      <string>development</string>
+    </config-file>
+    <config-file target="*-Release.plist" parent="aps-environment">
+      <string>production</string>
+    </config-file>
+
+		<!-- iOS Source Files -->
+    <source-file src="src/ios/OSFCMEventExtensions.swift" />
+    <source-file src="src/ios/OSFirebaseCloudMessaging.swift" />
+    <header-file src="src/ios/AppDelegate+OSFirebaseCloudMessaging.h" />
+    <source-file src="src/ios/AppDelegate+OSFirebaseCloudMessaging.m" />
+
+    <framework src="src/ios/frameworks/OSFirebaseMessagingLib.xcframework" embed="true" custom="true" />
+    <framework src="src/ios/frameworks/OSLocalNotificationsLib.xcframework" embed="true" custom="true" />
+
+    <dependency id="cordova-plugin-add-swift-support" url="https://github.com/OutSystems/cordova-plugin-add-swift-support.git#2.0.3-OS1"/>
+
+    <!-- Hooks -->
+    <hook type="after_prepare" src="hooks/ios/iOSCopyPreferences.js" />
+
+    <podspec>
+        <config>
+            <source url="https://cdn.cocoapods.org/"/>
+        </config>
+        <pods use-frameworks="true">
+            <pod name="Firebase/Messaging" spec="8.6.1" />
+            <pod name="OSCommonPluginLib" spec="1.0.0" />
+        </pods>
+    </podspec>
+
+  </platform>
+
+  <platform name="android">
+
+    <hook type="after_prepare" src="hooks/android/androidCopyChannelInfo.js" />
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="OSFirebaseCloudMessaging">
+        <param name="android-package" value="com.outsystems.firebase.cloudmessaging.OSFirebaseCloudMessaging"/>
+	      <param name="onload" value="true" />
+      </feature>
+      <preference name="GradlePluginKotlinEnabled" value="true" />
+      <preference name="GradlePluginKotlinCodeStyle" value="official" />
+      <preference name="AndroidXEnabled" value="true"/>
+    </config-file>
+
+    <config-file parent="/*" target="AndroidManifest.xml">
+      <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    </config-file>
+
+    <config-file parent="/resources" target="res/values/strings.xml">
+      <string name="notification_channel_name">Channel name</string>
+      <string name="notification_channel_description">Channel description</string>
+    </config-file>
+
+    <source-file src="src/android/com/outsystems/firebase/cloudmessaging/OSFirebaseCloudMessaging.kt" target-dir="app/src/main/kotlin/com/outsystems/firebase/cloudmessaging"/>
+    <framework src="src/android/com/outsystems/firebase/cloudmessaging/build.gradle" custom="true" type="gradleReference" />
+
+  </platform>
+  
+</plugin>
