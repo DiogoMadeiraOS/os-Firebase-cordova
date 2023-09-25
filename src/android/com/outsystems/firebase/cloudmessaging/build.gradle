@@ -35,8 +35,8 @@ dependencies {
   implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
   implementation 'androidx.work:work-runtime:2.7.0'
 }
-/*
+
 cdvPluginPostBuildExtras.add({
   apply plugin: 'com.google.gms.google-services'
-  apply plugin: 'com.google.firebase.crashlytics'
-})*/
+ /* apply plugin: 'com.google.firebase.crashlytics'*/
+})
