@@ -1,47 +1,47 @@
 var exec = require('cordova/exec');
 
 exports.getToken = function (success, error) {
-    exec(success, error, 'OSFirebaseCloudMessaging', 'getToken');
+    exec(success, error, 'FirebasePlugin', 'getToken');
 };
 
 exports.getAPNsToken = function (success, error) {
-    exec(success, error, 'OSFirebaseCloudMessaging', 'getAPNsToken');
+    exec(success, error, 'FirebasePlugin', 'getAPNsToken');
 };
 
 exports.subscribe = function (topic, success, error) {
-    exec(success, error, 'OSFirebaseCloudMessaging', 'subscribe', [topic]);
+    exec(success, error, 'FirebasePlugin', 'subscribe', [topic]);
 };
 
 exports.unsubscribe = function (topic, success, error) {
-    exec(success, error, 'OSFirebaseCloudMessaging', 'unsubscribe', [topic]);
+    exec(success, error, 'FirebasePlugin', 'unsubscribe', [topic]);
 };
 
 exports.clearNotifications = function (success, error) {
-    exec(success, error, 'OSFirebaseCloudMessaging', 'clearNotifications');
+    exec(success, error, 'FirebasePlugin', 'clearNotifications');
 };
 
 exports.setBadge = function (badge, success, error) {
-    exec(success, error, 'OSFirebaseCloudMessaging', 'setBadge', [badge]);
+    exec(success, error, 'FirebasePlugin', 'setBadge', [badge]);
 };
 
 exports.getBadge = function (success, error) {
-    exec(success, error, 'OSFirebaseCloudMessaging', 'getBadge');
+    exec(success, error, 'FirebasePlugin', 'getBadge');
 };
 
 exports.sendLocalNotification = function (badge, title, body, channelName, channelDescription, success, error) {
-    exec(success, error, 'OSFirebaseCloudMessaging', 'sendLocalNotification', [badge, title, body, channelName, channelDescription]);
+    exec(success, error, 'FirebasePlugin', 'sendLocalNotification', [badge, title, body, channelName, channelDescription]);
 };
 
 exports.registerDevice = function (success, error) {
-    exec(success, error, 'OSFirebaseCloudMessaging', 'registerDevice');
+    exec(success, error, 'FirebasePlugin', 'registerDevice');
 };
 
 exports.unregisterDevice = function (success, error) {
-    exec(success, error, 'OSFirebaseCloudMessaging', 'unregisterDevice');
+    exec(success, error, 'FirebasePlugin', 'unregisterDevice');
 };
 
 exports.getPendingNotifications = function (clearFromDatabase, success, error) {
-    exec(success, error, 'OSFirebaseCloudMessaging', 'getPendingNotifications', [clearFromDatabase]);
+    exec(success, error, 'FirebasePlugin', 'getPendingNotifications', [clearFromDatabase]);
 };
 
 // Event listener
@@ -132,7 +132,7 @@ exports._exec = function (action, args, callback, scope) {
         params.push(args);
     }
 
-    exec(fn, null, 'OSFirebaseCloudMessaging', action, params);
+    exec(fn, null, 'FirebasePlugin', action, params);
 };
 
 /**
