@@ -1,0 +1,271 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
+// swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OSFirebaseMessagingLib
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import CoreData
+import FirebaseCore
+import FirebaseMessaging
+import Foundation
+import OSLocalNotificationsLib
+import Swift
+import UIKit
+import UserNotifications
+import _Concurrency
+import _StringProcessing
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(OSFCMExtraData) public class OSFCMExtraData : CoreData.NSManagedObject, Swift.Codable {
+  public func encode(to encoder: Swift.Encoder) throws
+  required convenience public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+}
+public enum OSFCMTokenType {
+  case fcm
+  case apns
+  public static func == (a: OSFirebaseMessagingLib.OSFCMTokenType, b: OSFirebaseMessagingLib.OSFCMTokenType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(OSFCMNotification) public class OSFCMNotification : CoreData.NSManagedObject, Swift.Codable {
+  public func encode(to encoder: Swift.Encoder) throws
+  required convenience public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+}
+public enum FirebaseMessagingErrors : Swift.Int, Foundation.CustomNSError, Foundation.LocalizedError {
+  case registrationError
+  case registrationPermissionsError
+  case unregistrationError
+  case unregistrationDeleteTokenError
+  case subscriptionError
+  case unsubscriptionError
+  case obtainingTokenError
+  case deletingTokenError
+  case settingBadgeNumberError
+  case notificationsPermissionsDeniedError
+  case sendNotificationsError
+  case deleteNotificationsError
+  case obtainSilentNotificationsError
+  case requestPermissionsError
+  public var description: Swift.String {
+    get
+  }
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol MessagingProtocol {
+  func getGeneralTopic() -> Swift.String
+  #if compiler(>=5.3) && $AsyncAwait
+  func getToken(of type: OSFirebaseMessagingLib.OSFCMTokenType) async throws -> Swift.String
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func deleteToken() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func subscribe(toTopic topic: Swift.String) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func unsubscribe(fromTopic topic: Swift.String) async throws
+  #endif
+}
+public class FirebaseConfiguration {
+  public init(fileName: Swift.String = "GoogleService-Info", bundle: Foundation.Bundle = Bundle.main)
+  public func getGoogleServicesPath() -> Swift.String?
+  @objc deinit
+}
+public protocol FirebaseMessagingCallbackProtocol {
+  func callback(result: Swift.String?, error: OSFirebaseMessagingLib.FirebaseMessagingErrors?)
+}
+public protocol FirebaseMessagingEventProtocol {
+  func event(_ event: OSFirebaseMessagingLib.FirebaseEventType, data: Swift.String)
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class FirebaseMessagingApplicationDelegate : ObjectiveC.NSObject, UIKit.UIApplicationDelegate {
+  @_Concurrency.MainActor(unsafe) public var coreDataManager: OSFirebaseMessagingLib.CoreDataManager {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var notificationManager: OSFirebaseMessagingLib.NotificationManager {
+    get
+    set
+  }
+  @objc @_Concurrency.MainActor(unsafe) public static let shared: OSFirebaseMessagingLib.FirebaseMessagingApplicationDelegate
+  @_Concurrency.MainActor(unsafe) public var eventDelegate: OSFirebaseMessagingLib.FirebaseMessagingEventProtocol?
+  @_Concurrency.MainActor(unsafe) @objc public func application(_ application: UIKit.UIApplication, didFinishLaunchingWithOptions launchOptions: [UIKit.UIApplication.LaunchOptionsKey : Any]? = nil) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc public func application(_ application: UIKit.UIApplication, didReceiveRemoteNotification userInfo: [Swift.AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) @objc public func application(_ application: UIKit.UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Foundation.Data)
+  @objc deinit
+}
+extension OSFirebaseMessagingLib.FirebaseMessagingApplicationDelegate : UserNotifications.UNUserNotificationCenterDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func userNotificationCenter(_ center: UserNotifications.UNUserNotificationCenter, willPresent notification: UserNotifications.UNNotification, withCompletionHandler completionHandler: (UserNotifications.UNNotificationPresentationOptions) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func userNotificationCenter(_ center: UserNotifications.UNUserNotificationCenter, didReceive response: UserNotifications.UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void)
+}
+public protocol UIApplicationProtocol {
+  func getBadge() -> Swift.Int
+  func setBadge(badge: Swift.Int)
+  func getApplicationState() -> UIKit.UIApplication.State
+  func canRouteTo(_ url: Foundation.URL) -> Swift.Bool
+  func routeTo(_ url: Foundation.URL)
+}
+extension UIKit.UIApplication : OSFirebaseMessagingLib.UIApplicationProtocol {
+  @_Concurrency.MainActor(unsafe) public func getBadge() -> Swift.Int
+  @_Concurrency.MainActor(unsafe) public func setBadge(badge: Swift.Int)
+  @_Concurrency.MainActor(unsafe) public func getApplicationState() -> UIKit.UIApplication.State
+  @_Concurrency.MainActor(unsafe) public func canRouteTo(_ url: Foundation.URL) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) public func routeTo(_ url: Foundation.URL)
+}
+public enum FirebaseEventType {
+  case trigger(notification: OSFirebaseMessagingLib.FirebaseNotificationType)
+  case click(type: OSFirebaseMessagingLib.OSFCMClickableType)
+}
+public enum FirebaseNotificationType {
+  case defaultNotification
+  case silentNotification
+  public static func == (a: OSFirebaseMessagingLib.FirebaseNotificationType, b: OSFirebaseMessagingLib.FirebaseNotificationType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum OSFCMClickableType {
+  case notification(latestVersion: Swift.Bool)
+  case action
+}
+public class MessagingManager : OSFirebaseMessagingLib.MessagingProtocol {
+  public init()
+  public func getGeneralTopic() -> Swift.String
+  #if compiler(>=5.3) && $AsyncAwait
+  public func getToken(of type: OSFirebaseMessagingLib.OSFCMTokenType) async throws -> Swift.String
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func deleteToken() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func subscribe(toTopic topic: Swift.String) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func unsubscribe(fromTopic topic: Swift.String) async throws
+  #endif
+  @objc deinit
+}
+extension Swift.Encodable {
+  public func encode() -> Swift.String
+}
+public protocol NotificationManagerProtocol {
+  func insertNotification(notificationDict: [Swift.String : Any]) -> Swift.Result<Swift.Bool, Swift.Error>
+  func fetchNotifications() -> Swift.Result<[OSFirebaseMessagingLib.OSFCMNotification], Swift.Error>
+  #if compiler(>=5.3) && $AsyncAwait
+  func sendLocalNotification(title: Swift.String, body: Swift.String, badge: Swift.Int) async -> Swift.Result<Swift.Bool, Swift.Error>
+  #endif
+}
+@objc @_hasMissingDesignatedInitializers final public class NotificationManager : ObjectiveC.NSObject {
+  convenience public init(coreDataManager: OSFirebaseMessagingLib.CoreDataManager = CoreDataManager())
+  final public func deletePendingNotifications(_ notifications: [OSFirebaseMessagingLib.OSFCMNotification]) -> Swift.Result<Swift.Bool, Swift.Error>
+  @objc deinit
+}
+extension OSFirebaseMessagingLib.NotificationManager : OSFirebaseMessagingLib.NotificationManagerProtocol {
+  #if compiler(>=5.3) && $AsyncAwait
+  final public func sendLocalNotification(title: Swift.String, body: Swift.String, badge: Swift.Int) async -> Swift.Result<Swift.Bool, Swift.Error>
+  #endif
+  final public func insertNotification(notificationDict: [Swift.String : Any]) -> Swift.Result<Swift.Bool, Swift.Error>
+  final public func fetchNotifications() -> Swift.Result<[OSFirebaseMessagingLib.OSFCMNotification], Swift.Error>
+}
+@objc @_hasMissingDesignatedInitializers open class FirebaseMessagingController : ObjectiveC.NSObject {
+  convenience public init(delegate: OSFirebaseMessagingLib.FirebaseMessagingCallbackProtocol, firebaseManager: OSFirebaseMessagingLib.MessagingManager = MessagingManager(), coreDataManager: OSFirebaseMessagingLib.CoreDataManager = CoreDataManager())
+  public func getPendingNotifications(clearFromDatabase: Swift.Bool = false)
+  #if compiler(>=5.3) && $AsyncAwait
+  public func getToken(ofType type: OSFirebaseMessagingLib.OSFCMTokenType = .fcm) async
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func deleteToken() async
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func subscribe(_ topic: Swift.String, token: Swift.String = "") async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func unsubscribe(fromTopic topic: Swift.String) async throws
+  #endif
+  public func clearNotifications()
+  #if compiler(>=5.3) && $AsyncAwait
+  public func sendLocalNotification(title: Swift.String, body: Swift.String, badge: Swift.Int) async
+  #endif
+  public func setBadge(badge: Swift.Int)
+  public func getBadge()
+  #if compiler(>=5.3) && $AsyncAwait
+  public func registerDevice() async
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func unregisterDevice() async
+  #endif
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc open class CoreDataManager : ObjectiveC.NSObject {
+  public static let modelName: Swift.String
+  public static let model: CoreData.NSManagedObjectModel
+  public var storeContainer: CoreData.NSPersistentContainer {
+    get
+    set
+  }
+  public func context() -> CoreData.NSManagedObjectContext
+  public func fetch<T>(_ request: CoreData.NSFetchRequest<T>) throws -> [T] where T : CoreData.NSFetchRequestResult
+  public func saveContext() throws
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension OSFirebaseMessagingLib.OSFCMExtraData {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<OSFirebaseMessagingLib.OSFCMExtraData>
+  @objc @NSManaged dynamic public var key: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var value: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var notification: OSFirebaseMessagingLib.OSFCMNotification? {
+    @objc get
+    @objc set
+  }
+}
+extension OSFirebaseMessagingLib.OSFCMExtraData : Swift.Identifiable {
+  public typealias ID = Swift.ObjectIdentifier
+}
+extension OSFirebaseMessagingLib.OSFCMNotification {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<OSFirebaseMessagingLib.OSFCMNotification>
+  @objc @NSManaged dynamic public var messageID: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var timeStamp: Swift.Double {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var timeToLive: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var extraDataList: Foundation.NSSet? {
+    @objc get
+    @objc set
+  }
+}
+extension OSFirebaseMessagingLib.OSFCMNotification {
+  @objc(addExtraDataListObject:) @NSManaged dynamic public func addToExtraDataList(_ value: OSFirebaseMessagingLib.OSFCMExtraData)
+  @objc(removeExtraDataListObject:) @NSManaged dynamic public func removeFromExtraDataList(_ value: OSFirebaseMessagingLib.OSFCMExtraData)
+  @objc(addExtraDataList:) @NSManaged dynamic public func addToExtraDataList(_ values: Foundation.NSSet)
+  @objc(removeExtraDataList:) @NSManaged dynamic public func removeFromExtraDataList(_ values: Foundation.NSSet)
+}
+extension OSFirebaseMessagingLib.OSFCMNotification : Swift.Identifiable {
+  public typealias ID = Swift.ObjectIdentifier
+}
+extension OSFirebaseMessagingLib.OSFCMTokenType : Swift.Equatable {}
+extension OSFirebaseMessagingLib.OSFCMTokenType : Swift.Hashable {}
+extension OSFirebaseMessagingLib.FirebaseMessagingErrors : Swift.Equatable {}
+extension OSFirebaseMessagingLib.FirebaseMessagingErrors : Swift.Hashable {}
+extension OSFirebaseMessagingLib.FirebaseMessagingErrors : Swift.RawRepresentable {}
+extension OSFirebaseMessagingLib.FirebaseNotificationType : Swift.Equatable {}
+extension OSFirebaseMessagingLib.FirebaseNotificationType : Swift.Hashable {}

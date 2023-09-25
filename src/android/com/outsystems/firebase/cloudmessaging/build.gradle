@@ -1,0 +1,55 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.4'
+        classpath 'com.google.gms:google-services:4.3.14'
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+    repositories {
+        maven { url 'https://pkgs.dev.azure.com/OutSystemsRD/9e79bc5b-69b2-4476-9ca5-d67594972a52/_packaging/PublicArtifactRepository/maven/v1' }
+    }
+}
+
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    implementation("com.github.outsystems:oscore-android:1.2.0@aar")
+    implementation("com.github.outsystems:oscordova-android:1.2.0@aar")
+    implementation("com.github.outsystems:osfirebasemessaging-android:1.1.3@aar")
+    implementation("com.github.outsystems:oslocalnotifications-android:1.0.0@aar")
+    implementation("com.github.outsystems:osnotificationpermissions-android:0.0.4@aar")
+
+    implementation("com.google.code.gson:gson:2.8.9")
+
+    implementation platform('com.google.firebase:firebase-bom:29.3.1')
+    implementation("com.google.firebase:firebase-messaging-ktx")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2")
+
+    def roomVersion = "2.4.2"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("android.arch.persistence.room:compiler:1.1.1")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+}
+// use postBuildExtras to make sure the plugin is applied after
+// cdvPluginPostBuildExtras. Therefore if googleServices is added
+// to cdvPluginPostBuildExtras somewhere else, the plugin execution
+// will be skipped and project build will be successfull
+ext.postBuildExtras = {
+    if (project.extensions.findByName('googleServices') == null) {
+        // apply plugin: 'com.google.gms.google-services'
+        // class must be used instead of id(string) to be able to apply plugin from non-root gradle file
+        apply plugin: com.google.gms.googleservices.GoogleServicesPlugin
+        googleServices.disableVersionCheck = true
+    }
+}
