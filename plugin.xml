@@ -96,27 +96,27 @@
     <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/accent" />
   </config-file>
 
-  <resource-file src="src/android/res/drawable-hdpi/vis_transparent.png" target="res/drawable-hdpi/vis_transparent.png"/>
-  <resource-file src="src/android/res/drawable-mdpi/vis_transparent.png" target="res/drawable-mdpi/vis_transparent.png"/>
-  <resource-file src="src/android/res/drawable-xhdpi/vis_transparent.png" target="res/drawable-xhdpi/vis_transparent.png"/>
-  <resource-file src="src/android/res/drawable-xxhdpi/vis_transparent.png" target="res/drawable-xxhdpi/vis_transparent.png"/>
-  <resource-file src="src/android/res/drawable-xxxhdpi/vis_transparent.png" target="res/drawable-xxxhdpi/vis_transparent.png"/>
-  <resource-file src="src/android/res/values/styles.xml" target="res/values/styles.xml"/>
+  <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/res/drawable-hdpi/vis_transparent.png" target="res/drawable-hdpi/vis_transparent.png"/>
+  <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/res/drawable-mdpi/vis_transparent.png" target="res/drawable-mdpi/vis_transparent.png"/>
+  <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/res/drawable-xhdpi/vis_transparent.png" target="res/drawable-xhdpi/vis_transparent.png"/>
+  <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/res/drawable-xxhdpi/vis_transparent.png" target="res/drawable-xxhdpi/vis_transparent.png"/>
+  <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/res/drawable-xxxhdpi/vis_transparent.png" target="res/drawable-xxxhdpi/vis_transparent.png"/>
+  <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/res/values/styles.xml" target="res/values/styles.xml"/>
 
   <resource-file src="google-services.json" target="./google-services.json" />
-  <resource-file src="src/android/cordova-plugin-firebase-strings.xml" target="res/values/cordova-plugin-firebase-strings.xml" />
-  <resource-file src="src/android/cordova-plugin-firebase-colors.xml" target="res/values/cordova-plugin-firebase-colors.xml" />
-  <resource-file src="src/android/res/values/en-US/cordova-plugin-firebase-cmt-strings.xml" target="res/values/cordova-plugin-firebase-cmt-strings.xml" />
-  <resource-file src="src/android/res/values/is-IS/cordova-plugin-firebase-cmt-strings.xml" target="res/values-is/cordova-plugin-firebase-cmt-strings.xml" />
+  <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/cordova-plugin-firebase-strings.xml" target="res/values/cordova-plugin-firebase-strings.xml" />
+  <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/cordova-plugin-firebase-colors.xml" target="res/values/cordova-plugin-firebase-colors.xml" />
+  <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/res/values/en-US/cordova-plugin-firebase-cmt-strings.xml" target="res/values/cordova-plugin-firebase-cmt-strings.xml" />
+  <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/res/values/is-IS/cordova-plugin-firebase-cmt-strings.xml" target="res/values-is/cordova-plugin-firebase-cmt-strings.xml" />
 
-  <source-file src="src/android/FirebasePlugin.java" target-dir="src/org/apache/cordova/firebase" />
-  <source-file src="src/android/OnNotificationOpenReceiver.java" target-dir="src/org/apache/cordova/firebase" />
-  <source-file src="src/android/OnNotificationOpenActivity.java" target-dir="src/org/apache/cordova/firebase" />
-  <source-file src="src/android/FirebasePluginMessagingService.java" target-dir="src/org/apache/cordova/firebase" />
-  <source-file src="src/android/FirebasePluginMessageReceiver.java" target-dir="src/org/apache/cordova/firebase" />
-  <source-file src="src/android/FirebasePluginMessageReceiverManager.java" target-dir="src/org/apache/cordova/firebase" />
-
-  <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+  <source-file src="src/android/com/outsystems/firebase/cloudmessaging/FirebasePlugin.java" target-dir="src/org/apache/cordova/firebase" />
+  <source-file src="src/android/com/outsystems/firebase/cloudmessaging/OnNotificationOpenReceiver.java" target-dir="src/org/apache/cordova/firebase" />
+  <source-file src="src/android/com/outsystems/firebase/cloudmessaging/OnNotificationOpenActivity.java" target-dir="src/org/apache/cordova/firebase" />
+  <source-file src="src/android/com/outsystems/firebase/cloudmessaging/FirebasePluginMessagingService.java" target-dir="src/org/apache/cordova/firebase" />
+  <source-file src="src/android/com/outsystems/firebase/cloudmessaging/FirebasePluginMessageReceiver.java" target-dir="src/org/apache/cordova/firebase" />
+  <source-file src="src/android/com/outsystems/firebase/cloudmessaging/FirebasePluginMessageReceiverManager.java" target-dir="src/org/apache/cordova/firebase" />
+  
+  <framework src="src/android/com/outsystems/firebase/cloudmessaging/build.gradle" custom="true" type="gradleReference" />
   <framework src="com.google.gms:google-services:4.3.10" />
   <framework src="com.google.firebase:firebase-analytics:16.5.0" />
   <framework src="com.google.firebase:firebase-messaging:23.0.0" />
