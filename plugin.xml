@@ -62,7 +62,7 @@
 
   </platform>
 
-  <hook type="before_plugin_install" src="hooks/installDependencies.js" />
+  <hook type="before_plugin_install" src="hooks/configurations/installDependencies.js" />
 
   <platform name="android">
 
