@@ -103,7 +103,7 @@
   <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/res/drawable-xxxhdpi/vis_transparent.png" target="res/drawable-xxxhdpi/vis_transparent.png"/>
   <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/res/values/styles.xml" target="res/values/styles.xml"/>
 
-  <resource-file src="google-services.json" target="./google-services.json" />
+ 
   <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/cordova-plugin-firebase-strings.xml" target="res/values/cordova-plugin-firebase-strings.xml" />
   <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/cordova-plugin-firebase-colors.xml" target="res/values/cordova-plugin-firebase-colors.xml" />
   <resource-file src="src/android/com/outsystems/firebase/cloudmessaging/res/values/en-US/cordova-plugin-firebase-cmt-strings.xml" target="res/values/cordova-plugin-firebase-cmt-strings.xml" />
